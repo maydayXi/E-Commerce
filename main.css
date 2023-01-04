@@ -1,0 +1,28 @@
+@import url(https://fonts.googleapis.com/css2?family=Cormorant&family=Cormorant+Unicase:wght@500;600&display=swap);
+/* Fonts */
+
+/* Gloabal */
+* {
+    position: relative;
+    box-sizing: border-box;
+    font-family: "Cormorant Unicase", "Cormorant", serif !important;
+    transition: all 0.5s;
+    /* border: 1px solid #000; */
+}
+
+html,
+body {
+    width: 100%;
+    margin: 0;
+}
+
+img {
+    width: 100%;
+}
+
+/* root */
+#root {
+    display: flex;
+    flex-direction: column;
+}
+
