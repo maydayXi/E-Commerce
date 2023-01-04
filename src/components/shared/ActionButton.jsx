@@ -7,8 +7,7 @@ const mainColor = (opacity) => `rgba(134, 65, 81, ${opacity})`;
 /**
  * StyledButton component
  */
-const StyledButton = styled(Button)((theme) => ({
-    marginTop: "1rem",
+const StyledButton = styled(Button)(() => ({
     borderColor: mainColor(1),
     borderRadius: 0,
     color: mainColor(1),
@@ -21,8 +20,13 @@ const StyledButton = styled(Button)((theme) => ({
     },
 }));
 
-const ActionButton = ({ children }) => (
-    <StyledButton variant="outlined" href="/menu">
+/**
+ * ActionButton component
+ * @param {Object} props Action button content
+ * @returns Action button
+ */
+const ActionButton = ({ children, href }) => (
+    <StyledButton variant="outlined" href={href}>
         {children}
     </StyledButton>
 );

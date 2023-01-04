@@ -29,7 +29,7 @@ const SectionButton = ({ children }) => (
             mdOffset={9}
             sx={{ marginBottom: "2rem" }}
         >
-            <ActionButton>{children}</ActionButton>
+            <ActionButton href="/menu">{children}</ActionButton>
         </Grid>
     </Grid>
 );

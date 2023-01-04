@@ -1,11 +1,14 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import data from "./data/data.js";
-import DataContext from "./data/DataContext.jsx";
 import { PageLayout } from "./layout/PageLayout.jsx";
 import HomePage from "./pages/Home/HomePage.jsx";
 import MenuPage from "./pages/Menu/MenuPage.jsx";
 import ProductPage from "./pages/Product/ProductPage.jsx";
+import BagPage from "./pages/Bag/BagPage.jsx";
+
+import DataContext from "./data/DataContext.jsx";
+import data from "./data/data.js";
+import OrderingPage from "./pages/Order/OrderingPage.jsx";
 
 /**
  * Site router object
@@ -26,6 +29,14 @@ const router = createBrowserRouter([
                 <ProductPage />
             </PageLayout>
         ),
+    },
+    {
+        path: "/shopping-cart",
+        element: <BagPage />,
+    },
+    {
+        path: "/ordering",
+        element: <OrderingPage />,
     },
 ]);
 

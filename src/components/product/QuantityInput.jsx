@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { Button, ButtonGroup, TextField } from "@mui/material";
+import { Button, ButtonGroup, TextField, Typography } from "@mui/material";
 import SiteIcons from "../shared/SiteIcons.jsx";
 
 // increase button style
@@ -27,6 +27,9 @@ const quantityProps = {
     },
 };
 
+/**
+ * StyledButtonGroup component
+ */
 const StyledButtonGroup = styled(ButtonGroup)(({ theme }) => ({
     borderRadius: 0,
     borderBottom: "2px solid",
@@ -42,6 +45,9 @@ const StyledButton = styled(Button)(() => ({
     minWidth: "2rem",
 }));
 
+/**
+ * StyledTextField component
+ */
 const StyledTextField = styled(TextField)`
     font-size: 1.25rem;
     line-height: 1.25rem;
@@ -54,9 +60,19 @@ const StyledTextField = styled(TextField)`
     }
 `;
 
+const StyledTypography = styled(Typography)(({ theme }) => ({
+    color: theme.palette.primary.dark,
+}));
+
 const QuantityInput = () => {
     return (
-        <Grid2 container spacing={2} sx={{ marginBottom: "1rem " }}>
+        <Grid2
+            container
+            spacing={2}
+            sx={{ mb: "1rem " }}
+            justifyContent="space-between"
+            alignItems="flex-end"
+        >
             <StyledButtonGroup size="small" variant="text">
                 <StyledButton sx={decreaseButtonStyle}>
                     <SiteIcons.Decrease />
@@ -65,12 +81,13 @@ const QuantityInput = () => {
                     id="product-quantity"
                     variant="standard"
                     inputProps={quantityProps}
-                    value={1}
+                    defaultValue={1}
                 />
                 <StyledButton sx={increaseButtonStyle}>
                     <SiteIcons.Increase />
                 </StyledButton>
             </StyledButtonGroup>
+            {/* <StyledTypography variant="h5">庫存：10</StyledTypography> */}
         </Grid2>
     );
 };

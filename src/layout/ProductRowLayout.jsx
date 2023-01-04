@@ -8,7 +8,7 @@ import ProductCard from "../components/product/ProductCard.jsx";
  * @returns Product Card
  */
 const ProductRowLayout = ({ products, icon }) => (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} sx={{ marginBottom: "2rem" }}>
         {products.map((product, i) => (
             <Grid key={i} xs={12} sm={6} md={3}>
                 <ProductCard

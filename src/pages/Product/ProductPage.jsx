@@ -63,7 +63,7 @@ const ProductPage = () => {
                     <Product.Intro>{intro}</Product.Intro>
                     <Product.Price>{price}</Product.Price>
                     <Product.QuantityInput />
-                    <Product.Button>Buy</Product.Button>
+                    <Product.Button href="/shopping-cart">Buy</Product.Button>
                     <Product.NutritionFacts />
                     <Product.Ingredient />
                     <Product.Expiration />

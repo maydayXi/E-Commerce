@@ -13,6 +13,7 @@ import { TbBrandTelegram } from "react-icons/tb";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderPurple500Outlined";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import CloseIcon from "@mui/icons-material/Close";
 import { IoPaperPlaneOutline } from "react-icons/io5";
 
 // icon size style
@@ -129,6 +130,15 @@ const DecreaseIcon = () => <KeyboardArrowLeftIcon />;
 const IncreaseIcon = () => <KeyboardArrowRightIcon />;
 
 /**
+ * RemoveIcon component
+ */
+const RemoveIcon = styled(CloseIcon)(({ theme }) => ({
+    color: theme.palette.primary.main,
+    cursor: "pointer",
+    fontSize: "1rem",
+}));
+
+/**
  * SiteIcons Object
  */
 const SiteIcons = {
@@ -147,6 +157,7 @@ const SiteIcons = {
     New: NewIcon,
     Decrease: DecreaseIcon,
     Increase: IncreaseIcon,
+    Remove: RemoveIcon,
 };
 
 export default SiteIcons;
