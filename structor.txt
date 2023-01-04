@@ -1,0 +1,21 @@
+NAVLINK
+	千層
+	泡芙
+	蛋糕
+	糖果
+
+SECTION 2 => 熱銷/暢銷
+			MENU、Buy
+SECTION 3 => 關於我們
+			食譜、食材
+			MORE、Buy
+SECTION 4 => 新品
+			MENU、Buy
+SECTION 5 => 社群
+			IG
+FOOTER
+	MENU
+	ABOUT US
+	BOOKING
+	ON SALE
+	FAQ

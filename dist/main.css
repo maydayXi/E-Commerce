@@ -1,0 +1,15 @@
+@import url(https://fonts.googleapis.com/css2?family=Cormorant&family=Cormorant+Unicase:wght@500;600&display=swap);
+/* Fonts */
+
+/* Gloabal */
+* {
+    position: relative;
+    box-sizing: border-box;
+    font-family: "Cormorant Unicase", "Cormorant", serif !important;
+}
+
+html,
+body {
+    width: 100%;
+    margin: 0;
+}
