@@ -31,22 +31,22 @@ const ProductPrice = ({ children }) => (
     <Typography variant="h6">$ {children}</Typography>
 );
 
-const ProductQuantityInput = () => <QuantityInput />;
-
 /**
  * ProductButton component
  */
-const ProductButton = styled(Button)(({ theme }) => ({
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.white,
-    fontSize: "1.2rem",
-    borderRadius: 0,
-    marginBottom: "1rem",
+const ProductButton = styled(Button)(({ theme }) => {
+    return {
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.primary.white,
+        fontSize: "1.2rem",
+        borderRadius: 0,
+        marginBottom: "1rem",
 
-    ":hover": {
-        backgroundColor: alpha(theme.palette.primary.main, 0.9),
-    },
-}));
+        ":hover": {
+            backgroundColor: alpha(theme.palette.primary.main, 0.9),
+        },
+    };
+});
 
 /**
  * ProductNutritionFacts component
@@ -96,7 +96,7 @@ const Product = {
     Title: ProductTitle,
     Intro: ProductIntro,
     Price: ProductPrice,
-    QuantityInput: ProductQuantityInput,
+    QuantityInput: QuantityInput,
     Button: ProductButton,
     NutritionFacts: ProductNutritionFacts,
     Ingredient: ProductIngredient,

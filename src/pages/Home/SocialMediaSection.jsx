@@ -42,7 +42,7 @@ const p0 = {
  * @returns Social media content
  */
 const SocialMediaSection = () => {
-    const { SocialMedia } = useContext(DataContext);
+    const { socialMedia } = useContext(DataContext);
 
     return (
         <SectionLayout
@@ -63,14 +63,14 @@ const SocialMediaSection = () => {
                     sx={{ ...hidden, ...mb2 }}
                 >
                     <SocialImage
-                        image={SocialMedia[0].src}
+                        image={socialMedia[0].src}
                         imageHeight="350px"
-                        title={SocialMedia[0].title}
+                        title={socialMedia[0].title}
                     />
                     <SocialImage
-                        image={SocialMedia[1].src}
+                        image={socialMedia[1].src}
                         imageHeight="350px"
-                        title={SocialMedia[1].title}
+                        title={socialMedia[1].title}
                     />
                 </Grid>
                 <Grid
@@ -86,8 +86,8 @@ const SocialMediaSection = () => {
                     sx={mb2}
                 >
                     <SocialImage
-                        image={SocialMedia[2].src}
-                        title={SocialMedia[2].title}
+                        image={socialMedia[2].src}
+                        title={socialMedia[2].title}
                         imageHeight="450px"
                     />
                     <Grid
@@ -111,14 +111,14 @@ const SocialMediaSection = () => {
                     sx={{ ...hidden, ...flexOrder }}
                 >
                     <SocialImage
-                        image={SocialMedia[3].src}
+                        image={socialMedia[3].src}
                         imageHeight="350px"
-                        title={SocialMedia[3].title}
+                        title={socialMedia[3].title}
                     />
                     <SocialImage
-                        image={SocialMedia[4].src}
+                        image={socialMedia[4].src}
                         imageHeight="350px"
-                        title={SocialMedia[4].title}
+                        title={socialMedia[4].title}
                     />
                 </Grid>
             </Grid>

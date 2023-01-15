@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { Button, ButtonGroup, TextField, Typography } from "@mui/material";
 import SiteIcons from "../shared/SiteIcons.jsx";
+import DataContext from "../../data/DataContext.jsx";
 
 // increase button style
 const decreaseButtonStyle = {
@@ -60,11 +61,42 @@ const StyledTextField = styled(TextField)`
     }
 `;
 
-const StyledTypography = styled(Typography)(({ theme }) => ({
-    color: theme.palette.primary.dark,
-}));
+const errorStyle = {
+    borderColor: "#DC3545",
+};
 
-const QuantityInput = () => {
+const QuantityInput = ({ page, onChange }) => {
+    const { quantity } = useContext(DataContext);
+
+    let [count, setCount] = useState(quantity ? 1 : 0);
+    let [error, setError] = useState(false);
+
+    const handleIncrease = () => {
+        count = isNaN(count) ? 1 : count + 1;
+        count = count > quantity ? quantity : count;
+        setCount(count);
+    };
+
+    const handleDecrease = () => {
+        count = isNaN(count) ? 1 : count > 1 ? count - 1 : 1;
+        setCount(count);
+    };
+
+    const handleChange = (event) => {
+        const value = event.target.value;
+        setCount(value);
+
+        const _error = isNaN(value) || value.length === 0;
+        setError(_error);
+        console.log(`is error => ${_error}`);
+    };
+
+    useEffect(() => {
+        if (!onChange) return;
+
+        onChange(count);
+    }, [count]);
+
     return (
         <Grid2
             container
@@ -73,21 +105,39 @@ const QuantityInput = () => {
             justifyContent="space-between"
             alignItems="flex-end"
         >
-            <StyledButtonGroup size="small" variant="text">
-                <StyledButton sx={decreaseButtonStyle}>
+            <StyledButtonGroup
+                size="small"
+                variant="text"
+                style={error ? { errorStyle } : {}}
+            >
+                <StyledButton
+                    disabled={!quantity}
+                    sx={decreaseButtonStyle}
+                    onClick={handleDecrease}
+                >
                     <SiteIcons.Decrease />
                 </StyledButton>
                 <StyledTextField
                     id="product-quantity"
                     variant="standard"
                     inputProps={quantityProps}
-                    defaultValue={1}
+                    value={count}
+                    onChange={handleChange}
+                    disabled={!quantity}
                 />
-                <StyledButton sx={increaseButtonStyle}>
+                <StyledButton
+                    disabled={!quantity}
+                    sx={increaseButtonStyle}
+                    onClick={handleIncrease}
+                >
                     <SiteIcons.Increase />
                 </StyledButton>
             </StyledButtonGroup>
-            {/* <StyledTypography variant="h5">庫存：10</StyledTypography> */}
+            {page ? (
+                page === "product" ? (
+                    <Typography variant="h6">Inventory：{quantity}</Typography>
+                ) : null
+            ) : null}
         </Grid2>
     );
 };

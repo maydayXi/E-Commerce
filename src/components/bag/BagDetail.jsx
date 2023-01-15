@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Box, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2.js";
-import React from "react";
+import React, { useState } from "react";
 import Product from "../product/Product.jsx";
 
 /**
@@ -26,7 +26,9 @@ const IconWrap = styled(Grid2)(() => ({
  * @param {Object} props bag detail content
  * @returns Bag item detail
  */
-const BagDetail = ({ title, icon }) => {
+const BagDetail = ({ title, icon, quantity, price }) => {
+    const [count, setCount] = useState(quantity);
+
     return (
         <FlexBox>
             {icon ? <IconWrap>{icon}</IconWrap> : null}
@@ -34,9 +36,9 @@ const BagDetail = ({ title, icon }) => {
                 {title}
             </Typography>
             <Grid2 container justifyContent="space-between" alignItems="start">
-                <Product.QuantityInput />
+                <Product.QuantityInput onChange={setCount} />
                 <Typography variant="h6" sx={{ p: ".5rem 0" }}>
-                    $ 3000
+                    $ {quantity * price}
                 </Typography>
             </Grid2>
         </FlexBox>

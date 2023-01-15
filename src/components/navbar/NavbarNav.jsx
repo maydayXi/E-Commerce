@@ -33,7 +33,10 @@ const NavbarToggler = styled("div")`
     }
 `;
 
-const navbarBrandstyle = {
+/**
+ * Navbar Brand Style
+ */
+const navbarBrandStyle = {
     textAlign: "center",
     display: {
         xs: "none",
@@ -71,9 +74,9 @@ const NavbarNav = () => (
         <Grid xs={1} sm={1} md={1} lg={1}>
             <NavbarToggler className="navbar-toggler" />
         </Grid>
-        <Grid sm={6} md={8} lg={8} sx={navbarBrandstyle}>
+        <Grid sm={6} md={8} lg={8} sx={navbarBrandStyle}>
             <NavbarBrand variant="h3" href="/">
-                Anna Povlova
+                Anna Pavlova
             </NavbarBrand>
         </Grid>
         <NavbarAction

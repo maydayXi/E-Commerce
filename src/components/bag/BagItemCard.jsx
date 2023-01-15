@@ -36,15 +36,20 @@ const CardDetail = styled(Grid2)(({ theme }) => ({
     borderColor: theme.palette.primary.light,
 }));
 
-const BagItemCard = () => {
-    const { bestSellers } = useContext(DataContext);
-    const { title, image } = bestSellers[0];
+const BagItemCard = ({ product }) => {
+    console.log({ product });
+    const { product_image, quantity, product_price } = product;
 
     return (
         <FlexCard elevation={0}>
-            <CardImage image={image.src} />
+            <CardImage image={product_image.src} />
             <CardDetail>
-                <BagDetail title={title} icon={<SiteIcons.Remove />} />
+                <BagDetail
+                    title={product_image.alt}
+                    quantity={quantity}
+                    price={product_price}
+                    icon={<SiteIcons.Remove />}
+                />
             </CardDetail>
         </FlexCard>
     );

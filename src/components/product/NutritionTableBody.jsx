@@ -50,16 +50,17 @@ const SubRow = ({ rest }) => {
  * @returns Nutrition table
  */
 const NutritionTableBody = () => {
-    const { bestSellers } = useContext(DataContext);
-    const demoData = bestSellers[0];
-    const { nutritionFacts } = demoData;
-    const nutritionKey = Object.keys(nutritionFacts);
+    const { nutrition_facts } = useContext(DataContext);
+    const nutritionKey = Object.keys(nutrition_facts);
 
     return (
         <TableBody>
             {nutritionKey.map((key) => {
-                const { weight, value, ...rest } = nutritionFacts[key];
+                const { weight, value, ...rest } = nutrition_facts[key];
                 const percentage = `${value || 0} %`;
+
+                if (key === "servings_per_recipe") return null;
+                if (key === "calories") return null;
 
                 return (
                     <React.Fragment key={key}>

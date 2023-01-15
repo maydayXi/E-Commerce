@@ -28,8 +28,7 @@ const StyledTableContainer = styled(TableContainer)(() => ({
  * @returns Ingredient Table
  */
 const Ingredient = () => {
-    const { bestSellers } = useContext(DataContext);
-    const { ingredients } = { ...bestSellers[0] };
+    const { ingredients } = useContext(DataContext);
 
     return (
         <StyledTableContainer>

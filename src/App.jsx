@@ -5,10 +5,8 @@ import HomePage from "./pages/Home/HomePage.jsx";
 import MenuPage from "./pages/Menu/MenuPage.jsx";
 import ProductPage from "./pages/Product/ProductPage.jsx";
 import BagPage from "./pages/Bag/BagPage.jsx";
-
-import DataContext from "./data/DataContext.jsx";
-import data from "./data/data.js";
 import OrderingPage from "./pages/Order/OrderingPage.jsx";
+import NotFoundPage from "./pages/shared/NotFoundPage.jsx";
 
 /**
  * Site router object
@@ -16,11 +14,21 @@ import OrderingPage from "./pages/Order/OrderingPage.jsx";
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <HomePage />,
+        element: (
+            <PageLayout>
+                <HomePage />
+            </PageLayout>
+        ),
+        errorElement: <NotFoundPage />,
     },
     {
         path: "/menu",
-        element: <MenuPage />,
+        element: (
+            <PageLayout>
+                <MenuPage />
+            </PageLayout>
+        ),
+        errorElement: <NotFoundPage />,
     },
     {
         path: "/product/:id",
@@ -29,21 +37,30 @@ const router = createBrowserRouter([
                 <ProductPage />
             </PageLayout>
         ),
+        errorElement: <NotFoundPage />,
     },
     {
-        path: "/shopping-cart",
-        element: <BagPage />,
+        path: "/shopping-cart/:id",
+        errorElement: <NotFoundPage />,
+        element: (
+            <PageLayout>
+                <BagPage />
+            </PageLayout>
+        ),
     },
     {
         path: "/ordering",
-        element: <OrderingPage />,
+        errorElement: <NotFoundPage />,
+        element: (
+            <PageLayout>
+                <OrderingPage />
+            </PageLayout>
+        ),
     },
 ]);
 
-const App = () => (
-    <DataContext.Provider value={data}>
-        <RouterProvider router={router} />
-    </DataContext.Provider>
-);
+const App = () => {
+    return <RouterProvider router={router} />;
+};
 
 export default App;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "@emotion/styled";
 import {
     Table,
@@ -9,6 +9,7 @@ import {
     Typography,
 } from "@mui/material";
 import NutritionTableBody from "./NutritionTableBody.jsx";
+import DataContext from "../../data/DataContext.jsx";
 
 // padding style
 const cellPadding = {
@@ -94,17 +95,22 @@ const StyledHeaderRow = ({ variant = "h6", size = "small", left, right }) => (
  * @returns Nutrition facts label
  */
 const NutritionFacts = () => {
+    const { nutrition_facts } = useContext(DataContext);
+    const { calories, servings_per_recipe } = nutrition_facts;
+
     return (
         <StyledTableContainer>
             <Table aria-label="product-nutrition-facts" size="small">
                 <TableHead>
-                    <NormalHeadRow text="8 servings per container" />
-                    <StyledHeaderRow
-                        left="Serving size"
-                        right="2/3 cup (100g)"
+                    <NormalHeadRow
+                        text={`${servings_per_recipe} servings per container`}
                     />
                     <NormalHeadRow bold text="Amount per serving" />
-                    <StyledHeaderRow left="Calories" right="330" variant="h5" />
+                    <StyledHeaderRow
+                        left="Calories"
+                        right={calories}
+                        variant="h5"
+                    />
                     <DailyValueRow />
                 </TableHead>
                 <NutritionTableBody />
