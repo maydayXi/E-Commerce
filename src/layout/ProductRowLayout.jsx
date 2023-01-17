@@ -13,7 +13,7 @@ const ProductRowLayout = ({ products, icon }) => (
             <Grid key={i} xs={12} sm={6} md={3}>
                 <ProductCard
                     productId={product.id}
-                    title={product.title}
+                    title={product.name}
                     image={product.image}
                     price={product.price}
                     icon={icon}

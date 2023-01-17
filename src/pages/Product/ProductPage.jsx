@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2/Grid2.js";
 import Product from "../../components/product/Product.jsx";
 import { useParams } from "react-router-dom";
 import apiService from "../../api/services/firebaseService.js";
-import Loading from "../../components/shared/Loading.jsx";
 import SectionLayout from "../../layout/SectionLayout.jsx";
 import ProductRowLayout from "../../layout/ProductRowLayout.jsx";
-import DataContext from "../../data/DataContext.jsx";
+import { CartsContext } from "../../context/DataProvider.jsx";
+import CakeProvider from "../../context/CakeProvider.jsx";
+import Loading from "../../components/shared/Loading.jsx";
 
 // padding class
 const productPadding = {
@@ -36,22 +37,44 @@ const flexDirection = {
  * @returns Product content
  */
 const ProductPage = () => {
-    const { id } = useParams();
-    const [cake, setCake] = useState({});
-    const [cart, setCart] = useState({});
+    const { id } = useParams(); // product id(cake)
+    // const [cake, setCake] = useState(null); // cake state
     const [quantity, setQuantity] = useState(0);
     const [count, setCount] = useState(0);
-    const [randomCake, setRandomCake] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    // const [randomCake, setRandomCake] = useState([]);
 
+    const { carts } = useContext(CartsContext);
+
+    // useEffect(() => {
+    //     console.log("cake", cake);
+    //     apiService.getCakeById(id).then((data) => setCake(data));
+    //     apiService.getBestSellers().then((data) => setRandomCake(data));
+    // }, []);
+
+    const { data: cake, loading: isCakeLoading } = useAsync(
+        () => apiService.getCakeById(id),
+        { manual: false }
+    );
+
+    const { data: randomCake, loading: isRandomCakeLoading } = useAsync(
+        () => apiService.getBestSellers(),
+        { manual: false }
+    );
+
+    const isLoading = isCakeLoading || isRandomCakeLoading;
+
+    //#region click event
+    // TODO: 之後要加上已購買量的判斷 在 QuantityInput Component
     // Post item
     const handleClick = () => {
-        const { cart_items } = cart;
+        const { cart_items } = carts;
 
         const cart_ids = cart_items.map((item) => item.product_id);
+        // if had buy this product then update quantity.
         if (cart_ids.includes(id)) {
             const cart_item = cart_items.find((item) => item.product_id === id);
-            console.log({ ...cart_item, quantity: cart_item.quantity + count });
+            cart_item.quantity += count;
+            console.log(cart_item);
         } else {
             cart_items.push({
                 product_id: id,
@@ -62,40 +85,10 @@ const ProductPage = () => {
             });
         }
 
-        console.log(cart_items);
-
-        // const carts = { cart_items };
-
-        // apiService
-        //     .postCartItem(carts)
-        //     .then(() => (location.href = `/shopping-cart/${id}`));
+        apiService
+            .postCartItem({ cart_items })
+            .then(() => (location.href = `/shopping-cart`));
     };
-
-    //#region initialize
-    useEffect(() => {
-        const cakePromise = apiService
-            .getCakeById(id)
-            .then((cake) => setCake(cake));
-
-        const cartPromise = apiService.getCart("guest").then((data) => {
-            setCart(data);
-        });
-
-        const inventoryPromise = apiService
-            .getInventoryById(id)
-            .then((inventory) => setQuantity(inventory.quantity));
-
-        const randomPromise = apiService.getBestSellers().then((cakes) => {
-            setRandomCake(cakes);
-        });
-
-        Promise.all([
-            cakePromise,
-            cartPromise,
-            inventoryPromise,
-            randomPromise,
-        ]).then(() => setIsLoading(false));
-    }, []);
     //#endregion
 
     return (
@@ -103,7 +96,7 @@ const ProductPage = () => {
             {isLoading ? (
                 <Loading />
             ) : (
-                <DataContext.Provider value={{ ...cake, quantity }}>
+                <CakeProvider id={id} cake={cake}>
                     <Grid
                         container
                         spacing={2}
@@ -147,10 +140,43 @@ const ProductPage = () => {
                     <SectionLayout title="You may like">
                         <ProductRowLayout products={randomCake} />
                     </SectionLayout>
-                </DataContext.Provider>
+                </CakeProvider>
             )}
         </>
     );
 };
 
 export default ProductPage;
+
+const useAsync = (callback, { manual = true, defaultValue = null } = {}) => {
+    if (!callback) {
+        console.error("callback should be a function");
+    }
+
+    const [loading, setLoading] = useState(!manual);
+    const [error, setError] = useState(null);
+    const [data, setData] = useState(defaultValue);
+
+    const execute = useCallback(
+        async (...args) => {
+            setLoading(true);
+
+            try {
+                const newData = await callback(...args);
+                setData(newData);
+            } catch (error) {
+                setError(error);
+            }
+
+            setLoading(false);
+        },
+        [callback]
+    );
+
+    useEffect(() => {
+        if (manual) return;
+        execute();
+    }, [manual]);
+
+    return { execute, loading, error, data };
+};

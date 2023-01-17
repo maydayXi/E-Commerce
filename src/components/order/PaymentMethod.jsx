@@ -13,7 +13,7 @@ const PaymentMethod = () => (
         <RadioGroup
             aria-labelledby="payment-method-label"
             defaultValue="online"
-            name="payment-method-radio"
+            name="pay_with"
         >
             <FormControlLabel
                 value="online"

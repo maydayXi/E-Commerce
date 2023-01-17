@@ -7,7 +7,7 @@ import {
     TableContainer,
     TableRow,
 } from "@mui/material";
-import DataContext from "../../data/DataContext.jsx";
+import { CakeContext } from "../../context/CakeProvider.jsx";
 
 /**
  * StyledTableCell component
@@ -28,7 +28,8 @@ const StyledTableContainer = styled(TableContainer)(() => ({
  * @returns Ingredient Table
  */
 const Ingredient = () => {
-    const { ingredients } = useContext(DataContext);
+    const { cake } = useContext(CakeContext);
+    const { ingredients } = cake;
 
     return (
         <StyledTableContainer>

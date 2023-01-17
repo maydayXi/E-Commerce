@@ -37,7 +37,6 @@ const CardDetail = styled(Grid2)(({ theme }) => ({
 }));
 
 const BagItemCard = ({ product }) => {
-    console.log({ product });
     const { product_image, quantity, product_price } = product;
 
     return (
@@ -48,6 +47,7 @@ const BagItemCard = ({ product }) => {
                     title={product_image.alt}
                     quantity={quantity}
                     price={product_price}
+                    // TODO: 要加入刪除的功能
                     icon={<SiteIcons.Remove />}
                 />
             </CardDetail>

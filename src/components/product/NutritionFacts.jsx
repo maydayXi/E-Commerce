@@ -9,7 +9,7 @@ import {
     Typography,
 } from "@mui/material";
 import NutritionTableBody from "./NutritionTableBody.jsx";
-import DataContext from "../../data/DataContext.jsx";
+import { CakeContext } from "../../context/CakeProvider.jsx";
 
 // padding style
 const cellPadding = {
@@ -95,7 +95,8 @@ const StyledHeaderRow = ({ variant = "h6", size = "small", left, right }) => (
  * @returns Nutrition facts label
  */
 const NutritionFacts = () => {
-    const { nutrition_facts } = useContext(DataContext);
+    const { cake } = useContext(CakeContext);
+    const { nutrition_facts } = cake;
     const { calories, servings_per_recipe } = nutrition_facts;
 
     return (

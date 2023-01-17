@@ -21,6 +21,7 @@ const TimeSelect = () => {
             <Select
                 labelId="delivery-time"
                 id="delivery-time-select"
+                name="delivery_time"
                 value={time}
                 onChange={handleChange}
             >

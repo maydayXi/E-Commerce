@@ -7,7 +7,6 @@
 - 2022-12-20 Update Project structure, Add DataContext.jsx and data.js
 - 2022-12-28 HomePage RWD finished, add MenuPage, SiteIcons
 - 2022-01-04 Add ProductPage
-- 2022-01-15 Add Firestore Api
 
 ## Reference
 

@@ -2,6 +2,7 @@
 import firebaseConfig from "../config/firebaseConfig";
 import { initializeApp } from "firebase/app";
 import {
+    addDoc,
     collection,
     doc,
     getDoc,
@@ -141,11 +142,30 @@ const getCart = async (path) => {
  * @returns Post cart item
  */
 const postCartItem = async (data) => {
-    console.log("data", data);
     const cartRef = doc(database, "carts", "guest");
     await updateDoc(cartRef, data);
 
     // return cartSnapshot.exists() ? cartSnapshot.data() : {};
+};
+
+/**
+ * Post order data
+ * @param {Object} data Order data
+ * @returns Order id
+ */
+const postOrder = async (data) => {
+    const ordersRef = collection(database, "orders");
+    const orderRef = await addDoc(ordersRef, data);
+
+    return orderRef.id;
+};
+
+const clearCart = async (path) => {
+    const cartRef = doc(database, "carts", path);
+
+    await updateDoc(cartRef, {
+        cart_items: [],
+    });
 };
 
 /**
@@ -159,7 +179,8 @@ const apiService = {
     getInventoryById: getInventoryById,
     getCart: getCart,
     postCartItem: postCartItem,
-    delete: null,
+    postOrder: postOrder,
+    deleteCart: clearCart,
 };
 
 export default apiService;

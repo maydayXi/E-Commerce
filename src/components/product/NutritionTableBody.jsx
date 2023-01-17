@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { TableBody, TableCell, TableRow } from "@mui/material";
-import DataContext from "../../data/DataContext.jsx";
 import styled from "@emotion/styled";
+import { CakeContext } from "../../context/CakeProvider.jsx";
 
 // font weight style
 const fontWeightBold = {
@@ -50,7 +50,8 @@ const SubRow = ({ rest }) => {
  * @returns Nutrition table
  */
 const NutritionTableBody = () => {
-    const { nutrition_facts } = useContext(DataContext);
+    const { cake } = useContext(CakeContext);
+    const { nutrition_facts } = cake;
     const nutritionKey = Object.keys(nutrition_facts);
 
     return (

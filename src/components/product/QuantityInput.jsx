@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { Button, ButtonGroup, TextField, Typography } from "@mui/material";
 import SiteIcons from "../shared/SiteIcons.jsx";
-import DataContext from "../../data/DataContext.jsx";
+import { CakeContext } from "../../context/CakeProvider.jsx";
 
 // increase button style
 const decreaseButtonStyle = {
@@ -66,36 +66,35 @@ const errorStyle = {
 };
 
 const QuantityInput = ({ page, onChange }) => {
-    const { quantity } = useContext(DataContext);
+    console.log(useContext(CakeContext));
+    const { inventory } = useContext(CakeContext);
 
-    let [count, setCount] = useState(quantity ? 1 : 0);
-    let [error, setError] = useState(false);
+    // TODO: 要帶出購物車已經選購的數量
+    // 如果沒有再判斷有沒有庫存
+    let [quantity, setQuantity] = useState(inventory.quantity ? 1 : 0);
+    const [error, setError] = useState(false);
 
     const handleIncrease = () => {
-        count = isNaN(count) ? 1 : count + 1;
-        count = count > quantity ? quantity : count;
-        setCount(count);
+        quantity = isNaN(quantity) ? 1 : quantity + 1;
+        quantity = quantity > inventory ? quantity : inventory;
+        setQuantity(quantity);
     };
 
     const handleDecrease = () => {
-        count = isNaN(count) ? 1 : count > 1 ? count - 1 : 1;
-        setCount(count);
+        quantity = isNaN(quantity) ? 1 : quantity > 1 ? quantity - 1 : 1;
+        setQuantity(quantity);
     };
 
     const handleChange = (event) => {
         const value = event.target.value;
-        setCount(value);
-
-        const _error = isNaN(value) || value.length === 0;
-        setError(_error);
-        console.log(`is error => ${_error}`);
+        setQuantity(value);
     };
 
     useEffect(() => {
         if (!onChange) return;
 
-        onChange(count);
-    }, [count]);
+        onChange(quantity);
+    }, [quantity]);
 
     return (
         <Grid2
@@ -121,7 +120,7 @@ const QuantityInput = ({ page, onChange }) => {
                     id="product-quantity"
                     variant="standard"
                     inputProps={quantityProps}
-                    value={count}
+                    value={quantity}
                     onChange={handleChange}
                     disabled={!quantity}
                 />

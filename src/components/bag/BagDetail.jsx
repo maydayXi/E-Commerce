@@ -35,8 +35,12 @@ const BagDetail = ({ title, icon, quantity, price }) => {
             <Typography variant="h6" sx={{ mt: -2 }}>
                 {title}
             </Typography>
-            <Grid2 container justifyContent="space-between" alignItems="start">
-                <Product.QuantityInput onChange={setCount} />
+            <Grid2 container justifyContent="space-between" alignItems="center">
+                {/* TODO: 優化讓使用者可以在購物車中更新選購數量 */}
+                {/* <Product.QuantityInput onChange={setCount} /> */}
+                <Typography variant="h6">
+                    {price} × {quantity}
+                </Typography>
                 <Typography variant="h6" sx={{ p: ".5rem 0" }}>
                     $ {quantity * price}
                 </Typography>

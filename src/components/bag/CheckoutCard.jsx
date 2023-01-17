@@ -28,8 +28,10 @@ const SubTotal = styled(Grid2)(({ theme }) => ({
  * CheckoutCard component
  * @returns Checkout content
  */
-const CheckoutCard = () => {
-    const { cart_items } = useContext(DataContext);
+const CheckoutCard = ({ total = 0 }) => {
+    const handleClick = () => {
+        const order = {};
+    };
 
     return (
         <FlexCard elevation={0}>
@@ -54,11 +56,11 @@ const CheckoutCard = () => {
                 justifyContent="space-between"
             >
                 <Typography variant="h6">Your order amount</Typography>
-                <Typography variant="h6">
-                    {!cart_items.length ? "$ 0" : "$ "}
-                </Typography>
+                <Typography variant="h6">$ {total}</Typography>
             </SubTotal>
-            <Product.Button href="/ordering">Checkout</Product.Button>
+            <Product.Button component="button" onClick={handleClick}>
+                Checkout
+            </Product.Button>
         </FlexCard>
     );
 };
